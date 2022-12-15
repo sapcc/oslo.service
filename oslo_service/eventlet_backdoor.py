@@ -25,7 +25,6 @@ import traceback
 
 import eventlet.backdoor
 import greenlet
-import yappi
 
 from eventlet.green import socket
 from oslo_service._i18n import _
@@ -91,6 +90,12 @@ def _find_objects(t):
 
 
 def _capture_profile(fname=''):
+    try:
+        import yappi
+    except ImportError:
+        print("Yappi package not installed, profiling not possible")
+        return
+
     if not fname:
         yappi.set_clock_type('cpu')
         # We need to set context to greenlet to profile greenlets
