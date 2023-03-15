@@ -219,6 +219,8 @@ class PeriodicTasks(metaclass=_PeriodicTasksMeta):
                     raise
                 LOG.exception("Error during %(full_task_name)s",
                               {"full_task_name": full_task_name})
+            LOG.debug("Finished periodic task %(full_task_name)s",
+                      {"full_task_name": full_task_name})
             time.sleep(0)
 
         return idle_for
